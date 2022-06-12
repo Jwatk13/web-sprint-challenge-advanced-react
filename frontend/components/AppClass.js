@@ -103,11 +103,26 @@ export default class AppClass extends React.Component {
     // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
     // this helper should return the current index unchanged.
+
+    // how to know which coordinates are next too the coordinates of the active square...
+    // return those coordinates and move the active square to those coordinates, else return a message saying 'That move is impossible'
+
+    direction === 'left' ? this.state.x + this.state.y : this.state.message;
+    direction === 'right' ? this.state.x + this.state.y : this.state.message;
+    direction === 'up' ? this.state.x + this.state.y : this.state.message;
+    direction === 'down' ? this.state.x + this.state.y : this.state.message;
+
   }
 
   move = (evt) => {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
+    const { value } = evt.target
+    this.setState({
+      ... this.state,
+      x: 1,
+      y: 1
+    })
   }
 
   onChange = (evt) => {
