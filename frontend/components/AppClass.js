@@ -27,50 +27,53 @@ export default class AppClass extends React.Component {
     index: [0, 1, 2, 3, 4, 5, 6, 7, 8],
     steps: 0,
     x: 2,
-    y: 2
+    y: 3
   };
   
 
   getXY = () => {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
-   for (let i = 0; i < this.state.index.length; i++) {
-     if ( this.state.index[i] === 0 ) {
-       return this.state.x === 1 && this.state.y === 1; 
-     } else {
-       if ( this.state.index[i] === 1 ) {
-         return this.state.x === 2 && this.state.y === 1;
-       } else {
-        if ( this.state.index[i] === 2 ) {
-          return this.state.x === 3 && this.state.y === 1;
-        } else {
-          if ( this.state.index[i] === 3 ) {
-            return this.state.x === 1 && this.state.y === 2;
-          } else {
-            if ( this.state.index[i] === 4 ) {
-              return this.state.x === 2 && this.state.y === 2;
-            } else {
-              if ( this.state.index[i] === 5 ) {
-                return this.state.x === 3 && this.state.y === 2;
-              } else {
-                if ( this.state.index[i] === 6 ) {
-                  return this.state.x === 1 && this.state.y === 3;
-                } else {
-                  if ( this.state.index[i] === 7 ) {
-                    return this.state.x === 2 && this.state.y === 3;
-                  } else {
-                    if ( this.state.index[i] === 8 ) {
-                      return this.state.x === 3 && this.state.y === 3;
-                    } 
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-     } 
-   }
+  //  for (let i = 0; i < this.state.index.length; i++) {
+  //    console.log(i)
+
+    // console.log((i % 3) + 1)
+  //    if ( this.state.index[i] === 0 ) {
+  //      return this.state.x === 1 && this.state.y === 1; 
+  //    } else {
+  //      if ( this.state.index[i] === 1 ) {
+  //        return this.state.x === 2 && this.state.y === 1;
+  //      } else {
+  //       if ( this.state.index[i] === 2 ) {
+  //         return this.state.x === 3 && this.state.y === 1;
+  //       } else {
+  //         if ( this.state.index[i] === 3 ) {
+  //           return this.state.x === 1 && this.state.y === 2;
+  //         } else {
+  //           if ( this.state.index[i] === 4 ) {
+  //             return this.state.x === 2 && this.state.y === 2;
+  //           } else {
+  //             if ( this.state.index[i] === 5 ) {
+  //               return this.state.x === 3 && this.state.y === 2;
+  //             } else {
+  //               if ( this.state.index[i] === 6 ) {
+  //                 return this.state.x === 1 && this.state.y === 3;
+  //               } else {
+  //                 if ( this.state.index[i] === 7 ) {
+  //                   return this.state.x === 2 && this.state.y === 3;
+  //                 } else {
+  //                   if ( this.state.index[i] === 8 ) {
+  //                     return this.state.x === 3 && this.state.y === 3;
+  //                   } 
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //    } 
+  //  }
   }
   
 
@@ -80,11 +83,11 @@ export default class AppClass extends React.Component {
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
     
-    this.getXY
-    this.setState({
-      ... this.state,
-      index: "Coordinates" && this.state.x + this.state.y
-    })
+    // this.getXY
+    // this.setState({
+    //   ... this.state,
+    //   index: "Coordinates" && this.state.x + this.state.y
+    // })
   }
 
   reset = () => {
@@ -99,6 +102,18 @@ export default class AppClass extends React.Component {
     })
   };
 
+ isActiveSquare = (idx) => {
+    const currentX = Math.floor(idx / 3) + 1;
+    console.log(idx)
+    const currentY = (idx % 3) + 1;
+    // console.log((this.state.x === currentX && this.state.y === currentY));
+    // console.log(this.state.x === currentX)
+    // console.log(this.state.y)
+    console.log(currentX)
+    console.log(currentY)
+    return ((this.state.x === currentX) && (this.state.y === currentY))
+  }
+
   getNextIndex = (direction) => {
     // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
@@ -106,23 +121,32 @@ export default class AppClass extends React.Component {
 
     // how to know which coordinates are next too the coordinates of the active square...
     // return those coordinates and move the active square to those coordinates, else return a message saying 'That move is impossible'
+    // currentIndex() {
+    //   for (let i = 0; i < this.state.index.length; i++) {
+    //     const currentX = (i / 3) + 1;
+    //     const currentY = (i % 3) + 1;
+    //     if ( this.state.x === currentX && this.state.y === currentY) {
+    //       return i;
+    //     }
+    //   }
+    // }
 
-    direction === 'left' ? this.state.x + this.state.y : this.state.message;
-    direction === 'right' ? this.state.x + this.state.y : this.state.message;
-    direction === 'up' ? this.state.x + this.state.y : this.state.message;
-    direction === 'down' ? this.state.x + this.state.y : this.state.message;
+    // direction === 'left' ? this.state.x + this.state.y : this.state.message;
+    // direction === 'right' ? this.state.x + this.state.y : this.state.message;
+    // direction === 'up' ? this.state.x + this.state.y : this.state.message;
+    // direction === 'down' ? this.state.x + this.state.y : this.state.message;
 
   }
 
   move = (evt) => {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
-    const { value } = evt.target
-    this.setState({
-      ... this.state,
-      x: 1,
-      y: 1
-    })
+    // const { value } = evt.target
+    // this.setState({
+    //   ... this.state,
+    //   x: 1,
+    //   y: 1
+    // })
   }
 
   onChange = (evt) => {
@@ -149,22 +173,31 @@ export default class AppClass extends React.Component {
     })
   }
 
+  
+
   render() {
+    // for (let i = 0; i < this.state.index.length; i++) {
+    //   console.log(i)
+ 
+    //  console.log((this.state.index[i] % 3) + 1 == this.state.y)
+    //  console.log((this.state.index[i] / 3) + 1 == this.state.x)
+    // }
+    
     const { className } = this.props
     return (
       <div id="wrapper" className={className}>
         
         <div className="info">
-          {console.log('I made it')}
-          <h3 id="coordinates">Coordinates {this.state.index}</h3>
+          
+          <h3 id="coordinates">Coordinates {this.getXY()}</h3>
           <h3 id="steps">You moved {this.state.steps} times</h3>
         </div>
         <div id="grid">
           {
             this.state.index.map(idx => (
-              <div key={idx} className={`square${idx === this.state.x + this.state.y ? ' active' : ''}`}>
-                {idx === this.state.x + this.state.y ? 'B' : null}
-                
+              <div key={idx} className={`square${this.isActiveSquare(idx) ? ' active' : ''}`}>
+                {this.isActiveSquare(idx) ? 'B' : null}
+                {console.log('I made it')}
               </div>
             ))
           }
