@@ -126,6 +126,10 @@ export default function AppFunctional(props) {
     }
   }
 
+  const steps = () => {
+    return state.steps === 1  ? `You moved ${state.steps} time` : `You moved ${state.steps} times`
+  }
+
   const onChange = (evt) => {
     // You will need this to update the value of the input.
     const { value } = evt.target
@@ -149,7 +153,11 @@ export default function AppFunctional(props) {
         })
       })
       .catch(err => {
-        console.log({err})
+        console.log(err)
+        setState({
+          ...state,
+          message: err.response.data.message
+        })
       })
   }
 
@@ -158,7 +166,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{getXYMessage()}</h3>
-        <h3 id="steps">You moved {state.steps} times</h3>
+        <h3 id="steps">{steps()}</h3>
       </div>
       <div id="grid">
         {

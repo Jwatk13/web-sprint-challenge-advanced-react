@@ -126,6 +126,10 @@ export default class AppClass extends React.Component {
     }
   }
 
+  steps = () => {
+    return this.state.steps === 1  ? `You moved ${this.state.steps} time` : `You moved ${this.state.steps} times`
+  }
+
   onChange = (evt) => {
     // You will need this to update the value of the input.
     const { value } = evt.target
@@ -140,7 +144,6 @@ export default class AppClass extends React.Component {
     // Use a POST request to send a payload to the server.
     axios.post(`http://localhost:9000/api/result`, {steps: this.state.steps, y: this.state.y, x: this.state.x, email: this.state.email})
       .then(res => {
-        debugger
         console.log(res, "onSubmit log")
         this.setState({
           ...this.state,
@@ -149,7 +152,11 @@ export default class AppClass extends React.Component {
         })
       })
       .catch(err => {
-        console.log({err})
+        console.log(err.response)
+        this.setState({
+          ...this.state,
+          message: err.response.data.message
+        })
       })
   }
 
@@ -164,7 +171,7 @@ export default class AppClass extends React.Component {
         <div className="info">
           
           <h3 id="coordinates">{this.getXYMessage()}</h3>
-          <h3 id="steps">You moved {this.state.steps} times</h3>
+          <h3 id="steps">{this.steps()}</h3>
         </div>
         <div id="grid">
         {
