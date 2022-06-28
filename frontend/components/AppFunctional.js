@@ -135,7 +135,8 @@ export default function AppFunctional(props) {
     })
   }
 
-  const onSubmit = () => {
+  const onSubmit = (evt) => {
+    evt.preventDefault()
     // Use a POST request to send a payload to the server.
     axios.post(`http://localhost:9000/api/result`, {steps: state.steps, y: state.y, x: state.x, email: state.email})
       .then(res => {
@@ -157,7 +158,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{getXYMessage()}</h3>
-        <h3 id="steps">You Moved {state.steps} times</h3>
+        <h3 id="steps">You moved {state.steps} times</h3>
       </div>
       <div id="grid">
         {
@@ -178,9 +179,9 @@ export default function AppFunctional(props) {
         <button id="down" onClick={getNextIndex}>DOWN</button>
         <button id="reset" onClick={reset}>reset</button>
       </div>
-      <form>
+      <form onSubmit={onSubmit}>
         <input value={state.email} onChange={onChange} id="email" type="email" placeholder="type email"></input>
-        <input onSubmit={onSubmit} id="submit" type="submit"></input>
+        <input  id="submit" type="submit"></input>
       </form>
     </div>
   )
